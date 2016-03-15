@@ -1,0 +1,83 @@
+package items;
+
+import iamtheissue.skillz.Main;
+import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+
+public class SkillzAxe extends ItemAxe
+{
+
+	public SkillzAxe(String unlocalizedName, ToolMaterial material)
+	{
+		super(material);
+		this.setUnlocalizedName(unlocalizedName);
+        this.setTextureName(Main.MODID + ":" + unlocalizedName);
+	}
+	
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World p_150894_2_, Block p_150894_3_, int p_150894_4_,
+			int p_150894_5_, int p_150894_6_, EntityLivingBase playerIn)
+	{
+		if(playerIn instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer)playerIn;
+			if(player.getEntityData().hasKey("blocksMined"))
+			{
+				int value = player.getEntityData().getInteger("blocksMined");
+				player.getEntityData().removeTag("blocksMined");
+			}
+			else
+			{
+				player.getEntityData().setInteger("blocksMined", 0);
+			}
+		}
+		else if(playerIn instanceof EntityPlayerMP)
+		{
+			
+		}
+		
+		NBTTagList list = stack.getEnchantmentTagList();
+		int index = -1;
+		int currLvl = -1;
+		if(list != null)
+		{
+			for(int i = 0; i < list.tagCount(); i++)
+			{
+				int id = list.getCompoundTagAt(i).getShort("id");
+				int lvl = list.getCompoundTagAt(i).getShort("lvl");
+				
+				if(id == 32)
+				{
+					index = i;
+					currLvl = lvl;
+					break;
+				}
+				
+			}
+		}
+		
+		int newLvl = (int) (getExp(stack) / 10);
+		if(newLvl > 0 && newLvl <= 5 && currLvl < newLvl)
+		{
+			if(index != -1)
+			{
+				list.removeTag(index);
+			}
+			
+			stack.addEnchantment(Enchantment.efficiency, newLvl);
+		}
+		
+		return super.onBlockDestroyed(stack, p_150894_2_, p_150894_3_, p_150894_4_, p_150894_5_, p_150894_6_,
+				playerIn);
+		
+		
+	}
+
+}

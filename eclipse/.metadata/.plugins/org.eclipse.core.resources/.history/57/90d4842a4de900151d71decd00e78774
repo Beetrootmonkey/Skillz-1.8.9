@@ -1,0 +1,13 @@
+package items;
+
+import net.minecraft.item.ItemSpade;
+
+public class SkillzSpade extends ItemSpade
+{
+
+	public SkillzSpade(ToolMaterial material)
+	{
+		super(material);
+	}
+
+}

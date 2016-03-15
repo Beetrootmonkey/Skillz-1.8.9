@@ -1,0 +1,31 @@
+package iamtheissue.skillz;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+
+public class Profils
+{
+	
+	@SubscribeEvent
+	public void onPlayerJoin(EntityJoinWorldEvent event)
+	{
+		if(event.entity instanceof EntityPlayer)
+		{
+			// Load NBT from disc
+		}
+		else if(event.entity instanceof EntityPlayerMP)
+		{
+			// TODO
+		}
+		else
+		{
+			return;
+		}
+		
+	}
+}

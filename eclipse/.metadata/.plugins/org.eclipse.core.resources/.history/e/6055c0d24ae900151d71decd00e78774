@@ -1,0 +1,37 @@
+package iamtheissue.skillz;
+
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.item.Item;
+
+@Mod(modid = "skillz", name = "Skillz", version = "1.0")
+public class Skillz
+{
+	public static Item test;
+	
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent even)
+	{
+		// Initialize + register items, etc.
+		// Load config
+		test = new ItemTest().setUnlocalizedName("test").setTextureName("skillz.test");
+		GameRegistry.registerItem(test, test.getUnlocalizedName().substring(5));
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent event)
+	{
+		// Proxy, TileEntity, Entity, GUI, Packet registering
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event)
+	{
+		
+	}
+}

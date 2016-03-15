@@ -1,0 +1,13 @@
+package items;
+
+import net.minecraft.item.ItemSword;
+
+public class SkillzSword extends ItemSword
+{
+
+	public SkillzSword(ToolMaterial material)
+	{
+		super(material);
+	}
+
+}

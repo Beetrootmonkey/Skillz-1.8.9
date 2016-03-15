@@ -1,0 +1,39 @@
+package iamtheissue.skillz;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+import items.SkillzPickaxe;
+import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraftforge.common.util.EnumHelper;
+
+public class Items
+{
+	public static Item flintPickaxe;
+	public static Item flintAxe;
+	public static Item flintSpade;
+	public static Item flintHoe;
+	public static Item flintSword;
+	
+	
+	public static ToolMaterial FLINT = EnumHelper.addToolMaterial("FLINT", 1, 131, 4f, 1f, 5);
+	
+	
+	public static void init()
+	{
+		flintPickaxe = new SkillzPickaxe("flintPickaxe", FLINT);
+		flintPickaxe = new SkillzPickaxe("flintAxe", FLINT);
+		flintPickaxe = new SkillzPickaxe("flintSpade", FLINT);
+		flintPickaxe = new SkillzPickaxe("flintHoe", FLINT);
+		flintPickaxe = new SkillzPickaxe("flintSword", FLINT);
+	}
+	
+	public static void register()
+	{
+		GameRegistry.registerItem(flintPickaxe = new SkillzPickaxe("flintPickaxe", FLINT), flintPickaxe.getUnlocalizedName().substring(5));
+		GameRegistry.registerItem(flintAxe = new ItemModAxe("flintAxe", FLINT), flintAxe);
+		GameRegistry.registerItem(flintSpade = new ItemModSpade("flintSpade", FLINT), flintSpade);
+		GameRegistry.registerItem(flintHoe = new ItemModHoe("flintHoe", FLINT), flintHoe);
+		GameRegistry.registerItem(flintSword = new ItemModSword("flintSword", FLINT), flintSword);
+	}
+	
+}

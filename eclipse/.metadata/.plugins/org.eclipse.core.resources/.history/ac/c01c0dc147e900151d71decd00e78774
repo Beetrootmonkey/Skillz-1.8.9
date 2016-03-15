@@ -1,0 +1,8 @@
+package iamtheissue.skillz;
+
+import cpw.mods.fml.common.Mod;
+
+@Mod(modid = "skillz", name = "Skillz", version = "1.0")
+public class SkillzMod {
+
+}

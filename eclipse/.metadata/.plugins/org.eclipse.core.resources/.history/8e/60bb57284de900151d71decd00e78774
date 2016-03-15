@@ -1,0 +1,13 @@
+package items;
+
+import net.minecraft.item.ItemAxe;
+
+public class SkillzAxe extends ItemAxe
+{
+
+	protected SkillzAxe(ToolMaterial material)
+	{
+		super(material);
+	}
+
+}

@@ -1,0 +1,8 @@
+package iamtheissue.skillz;
+
+import net.minecraft.item.ItemAxe;
+
+public class SkillzAxe extends ItemAxe
+{
+
+}

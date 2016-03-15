@@ -1,0 +1,8 @@
+package iamtheissue.skillz;
+
+import net.minecraft.item.ItemSword;
+
+public class SkillzSword extends ItemSword
+{
+
+}

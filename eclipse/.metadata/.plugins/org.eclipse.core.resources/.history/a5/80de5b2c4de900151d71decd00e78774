@@ -1,0 +1,13 @@
+package items;
+
+import net.minecraft.item.ItemHoe;
+
+public class SkillzHoe extends ItemHoe
+{
+
+	public SkillzHoe(ToolMaterial material)
+	{
+		super(material);
+	}
+
+}

@@ -1,0 +1,9 @@
+package iamtheissue.skillz;
+
+import net.minecraft.item.Item.ToolMaterial;
+import net.minecraftforge.common.util.EnumHelper;
+
+public class Items
+{
+	public static ToolMaterial FLINT = EnumHelper.addToolMaterial("FLINT", 1, 131, 4f, 1f, 5);
+}
