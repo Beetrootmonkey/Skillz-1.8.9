@@ -1,0 +1,10 @@
+package iamtheissue.skillz;
+
+import net.minecraft.item.Item;
+
+public class ItemTest extends Item
+{
+	public static ToolMaterial TUTORIAL = EnumHelper.addToolMaterial("TUTORIAL", harvestLevel, durability, miningSpeed, damageVsEntities, enchantability);
+	
+	
+}

@@ -1,0 +1,41 @@
+package iamtheissue.skillz;
+
+import net.minecraft.nbt.NBTTagCompound;
+
+public class Profil
+{
+	private String name;
+	private int blocksMined = 0;
+	
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	public int getBlocksMined()
+	{
+		return this.blocksMined;
+	}
+	
+	public void setBlocksMined(int value)
+	{
+		this.blocksMined = value;
+	}
+	
+	public NBTTagCompound toNBT()
+	{
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setInteger("blocksMined", blocksMined);
+		
+		return nbt;
+	}
+	
+	public void fromNBT(NBTTagCompound nbt)
+	{
+		blocksMined = nbt.getInteger("blocksMined");
+	}
+}

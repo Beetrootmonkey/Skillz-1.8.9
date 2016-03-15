@@ -1,0 +1,24 @@
+package iamtheissue.skillz;
+
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+
+@Mod(modid = "skillz", name = "Skillz", version = "1.0")
+public class Skillz
+{
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent even)
+	{
+		// Initialize + register items, etc.
+		// Load config
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent event)
+	{
+		
+	}
+}

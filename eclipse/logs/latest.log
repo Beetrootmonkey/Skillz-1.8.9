@@ -1,0 +1,63 @@
+[02:07:52] [main/INFO]: Setting user: Player291
+[02:07:55] [Client thread/INFO]: LWJGL Version: 2.9.1
+[02:08:08] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Skillz
+[02:08:09] [Sound Library Loader/INFO]: Sound engine started
+[02:08:11] [Client thread/INFO]: Created: 16x16 textures/blocks-atlas
+[02:08:11] [Client thread/INFO]: Created: 16x16 textures/items-atlas
+[02:08:12] [Client thread/INFO]: Reloading ResourceManager: Default, FMLFileResourcePack:Forge Mod Loader, FMLFileResourcePack:Minecraft Forge, FMLFileResourcePack:Skillz
+[02:08:12] [Client thread/INFO]: Created: 512x256 textures/blocks-atlas
+[02:08:13] [Client thread/INFO]: Created: 256x256 textures/items-atlas
+[02:08:13] [Sound Library Loader/INFO]: Sound engine started
+[02:08:20] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[02:08:20] [Server thread/INFO]: Generating keypair
+[02:08:21] [Server thread/INFO]: Preparing start region for level 0
+[02:08:22] [Server thread/INFO]: Preparing spawn area: 20%
+[02:08:23] [Server thread/INFO]: Changing view distance to 8, from 10
+[02:08:24] [Server thread/INFO]: Player291[local:E:094a778a] logged in with entity id 281 at (-150.63761877211016, 64.0, 224.5572468346104)
+[02:08:24] [Server thread/INFO]: Player291 joined the game
+[02:08:24] [Client thread/INFO]: [CHAT] You spawned. Path: C:\Users\Nicolai\Documents\GitHub\Skillz\eclipse\saves\New World\skillzProfil.dat
+[02:08:25] [Client thread/INFO]: [CHAT] Player291 spawned. Trying to fetch data...
+[02:08:25] [Client thread/INFO]: [CHAT] Read 0
+[02:08:25] [Server thread/INFO]: Saving and pausing game...
+[02:08:25] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[02:08:25] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[02:08:25] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[02:08:26] [Client thread/INFO]: [CHAT] Wrote 0 [0]
+[02:08:27] [Server thread/INFO]: Player291 has just earned the achievement [Taking Inventory]
+[02:08:28] [Client thread/INFO]: [CHAT] Player291 has just earned the achievement [Taking Inventory]
+[02:09:02] [Server thread/INFO]: Saving and pausing game...
+[02:09:02] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[02:09:02] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[02:09:02] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[02:09:03] [Client thread/INFO]: [CHAT] Wrote 1 [1]
+[02:09:10] [Client thread/INFO]: [CHAT] Wrote 1 [1]
+[02:09:24] [Server thread/INFO]: Saving and pausing game...
+[02:09:24] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[02:09:24] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[02:09:24] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[02:09:25] [Server thread/INFO]: Stopping server
+[02:09:25] [Server thread/INFO]: Saving players
+[02:09:25] [Server thread/INFO]: Saving worlds
+[02:09:25] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[02:09:25] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[02:09:25] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[02:09:28] [Server thread/INFO]: Starting integrated minecraft server version 1.7.10
+[02:09:28] [Server thread/INFO]: Generating keypair
+[02:09:28] [Server thread/INFO]: Preparing start region for level 0
+[02:09:29] [Server thread/INFO]: Changing view distance to 8, from 10
+[02:09:29] [Server thread/INFO]: Player291[local:E:cd1fcd02] logged in with entity id 5809 at (-150.63761877211016, 64.0, 224.5572468346104)
+[02:09:29] [Server thread/INFO]: Player291 joined the game
+[02:09:29] [Client thread/INFO]: [CHAT] You spawned. Path: C:\Users\Nicolai\Documents\GitHub\Skillz\eclipse\saves\New World\skillzProfil.dat
+[02:09:29] [Client thread/INFO]: [CHAT] Player291 spawned. Trying to fetch data...
+[02:09:29] [Client thread/INFO]: [CHAT] Read 1
+[02:09:54] [Server thread/INFO]: Saving and pausing game...
+[02:09:54] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[02:09:54] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[02:09:54] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[02:09:54] [Server thread/INFO]: Stopping server
+[02:09:54] [Server thread/INFO]: Saving players
+[02:09:54] [Server thread/INFO]: Saving worlds
+[02:09:54] [Server thread/INFO]: Saving chunks for level 'New World'/Overworld
+[02:09:54] [Server thread/INFO]: Saving chunks for level 'New World'/Nether
+[02:09:54] [Server thread/INFO]: Saving chunks for level 'New World'/The End
+[02:09:56] [Client thread/INFO]: Stopping!

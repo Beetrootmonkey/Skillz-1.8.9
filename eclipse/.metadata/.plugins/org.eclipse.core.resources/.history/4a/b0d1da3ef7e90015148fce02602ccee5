@@ -1,0 +1,18 @@
+package iamtheissue.skillz;
+
+public class Profil
+{
+	private int blocksMined = 0;
+	
+	public int getBlocksMined()
+	{
+		return this.blocksMined;
+	}
+	
+	public void setBlocksMined(int value)
+	{
+		this.blocksMined = value;
+	}
+	
+	
+}

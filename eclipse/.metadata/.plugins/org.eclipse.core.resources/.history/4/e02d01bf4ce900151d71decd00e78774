@@ -1,0 +1,13 @@
+package items;
+
+import net.minecraft.item.ItemPickaxe;
+
+public class SkillzPickaxe extends ItemPickaxe
+{
+
+	protected SkillzPickaxe(ToolMaterial material)
+	{
+		super(material);
+	}
+
+}

@@ -1,0 +1,30 @@
+package iamtheissue.skillz;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+
+public class Profils
+{
+	private List players = new ArrayList();
+	
+	@SubscribeEvent
+	public void onPlayerJoin(EntityJoinWorldEvent event)
+	{
+		if(event.entity instanceof EntityPlayer)
+		{
+			
+		}
+		else if(event.entity instanceof EntityPlayerMP)
+		{
+			
+		}
+		if(players.contains(event.entity))
+		{
+			
+		}
+	}
+}

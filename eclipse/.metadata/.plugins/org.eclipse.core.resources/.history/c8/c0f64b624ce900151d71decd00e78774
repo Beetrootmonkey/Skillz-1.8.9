@@ -1,0 +1,8 @@
+package iamtheissue.skillz;
+
+import net.minecraft.item.ItemHoe;
+
+public class SkillzHoe extends ItemHoe
+{
+
+}

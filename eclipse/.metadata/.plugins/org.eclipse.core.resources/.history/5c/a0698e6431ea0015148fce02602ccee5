@@ -1,0 +1,201 @@
+package iamtheissue.skillz;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IChatComponent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.world.BlockEvent.BreakEvent;
+
+public class EventHook
+{
+	@SubscribeEvent
+	public void onBlockBreak(BreakEvent event)
+	{
+
+		// Item item = event.getPlayer().getCurrentEquippedItem().getItem();
+	}
+
+	@SubscribeEvent
+	public void onPlayerSpawn(EntityJoinWorldEvent event)
+	{
+		if(event.entity instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer)event.entity;
+			if(!player.worldObj.isRemote)
+			{
+				player.addChatMessage(new ChatComponentText(player.getCommandSenderName() + " spawned. Trying to fetch data..."));
+				readFile(player);
+			}
+			else
+			{
+				player.addChatMessage(new ChatComponentText("You spawned."));
+			}
+			
+			
+		}
+		
+	}
+
+	@SubscribeEvent
+	public void onPlayerDeath(LivingDeathEvent event)
+	{
+		if(event.entity instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer)event.entity;
+			if(!player.worldObj.isRemote)
+			{
+				player.addChatMessage(new ChatComponentText(player.getDisplayName() + " died. Trying to save their data..."));
+				writeFile(player);
+			}
+			else
+			{
+				player.addChatMessage(new ChatComponentText("You died."));
+			}
+			
+			
+		}
+		
+	}
+
+	@SubscribeEvent
+	public void onPlayerLogOut(PlayerLoggedOutEvent event)
+	{
+		if(!event.player.worldObj.isRemote)
+		{
+			writeFile(event.player);
+		}
+		else
+		{
+			event.player.addChatMessage(new ChatComponentText("You logged out."));
+		}
+		
+		
+	}
+
+	public static String getPath()
+	{
+		String nbtFileName = "skillzProfil";
+		MinecraftServer ms = FMLCommonHandler.instance().getMinecraftServerInstance();
+		String s = (new StringBuilder()).append(ms.getFile(ms.getFolderName())).append("/" + nbtFileName).append(".dat")
+				.toString();
+
+		if (ms.isSinglePlayer())
+		{
+			s = (new StringBuilder()).append(ms.getFile("/saves")).append("/").append(ms.getFolderName())
+					.append("/" + nbtFileName).append(".dat").toString();
+		}
+		return s;
+	}
+
+	public static NBTTagCompound readWholeFile()
+	{
+		try
+		{
+
+			// lädt die datei von der festplatte
+			File file = new File(getPath());
+			FileInputStream fileInputStream = new FileInputStream(file);
+			NBTTagCompound nbt = CompressedStreamTools.readCompressed(fileInputStream);
+
+			fileInputStream.close();
+
+			return nbt;
+
+		}
+		catch (FileNotFoundException e)
+		{
+			// falls die Datei noch nie angelegt wurde, wird sie es jetzt
+			// writeFile(player);
+		}
+		catch (IOException e)
+		{
+			// falls die datei korrupt ist, wird sie neu angelegt
+			// writeFile(player);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static void readFile(EntityPlayer player)
+	{
+		String name = player.getGameProfile().getName();
+		try
+		{
+
+			// lädt die datei von der festplatte
+			File file = new File(getPath());
+			FileInputStream fileInputStream = new FileInputStream(file);
+			NBTTagCompound nbt = CompressedStreamTools.readCompressed(fileInputStream);
+
+			// lädt die Spierliste, bzw. falls nicht vorhanden wird neue
+			// angelegt
+			player.getEntityData().setInteger("bocksMined", nbt.getInteger(name));
+
+			// Hier alles lesen (aus playerNBT)
+			
+
+			fileInputStream.close();
+
+		}
+		catch (FileNotFoundException e)
+		{
+			// falls die Datei noch nie angelegt wurde, wird sie es jetzt
+			// writeFile(player);
+		}
+		catch (IOException e)
+		{
+			// falls die datei korrupt ist, wird sie neu angelegt
+			// writeFile(player);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static void writeFile(EntityPlayer player)
+	{
+		String name = player.getGameProfile().getName();
+		try
+		{
+
+			File file = new File(getPath());
+			file.createNewFile();
+			FileOutputStream fileoutputstream = new FileOutputStream(file);
+
+			NBTTagCompound nbt = new NBTTagCompound();
+
+			// Hier alles in "playerNBT" abspeichern !!!
+
+			// den Spieler in die SpielerListe setzen
+			nbt.setInteger(name, player.getEntityData().getInteger("blocksMined"));
+
+			// speichert die Datei auf dem Rechner ab
+			CompressedStreamTools.writeCompressed(nbt, fileoutputstream);
+			fileoutputstream.close();
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+}
