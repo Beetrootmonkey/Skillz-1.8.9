@@ -5,16 +5,21 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
 import cpw.mods.fml.server.FMLServerHandler;
+import ibxm.Player;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerProfileCache;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -24,6 +29,8 @@ import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 
 public class EventHook
 {
+	private static List<NBTTagCompound> playerProfiles = new ArrayList<NBTTagCompound>();
+
 	@SubscribeEvent
 	public void onBlockBreak(BreakEvent event)
 	{
@@ -34,64 +41,104 @@ public class EventHook
 	@SubscribeEvent
 	public void onPlayerSpawn(EntityJoinWorldEvent event)
 	{
-		if(event.entity instanceof EntityPlayer)
+		if (event.entity instanceof EntityPlayer)
 		{
-			EntityPlayer player = (EntityPlayer)event.entity;
-			if(!player.worldObj.isRemote)
+			EntityPlayer player = (EntityPlayer) event.entity;
+			if (!player.worldObj.isRemote)
 			{
-				player.addChatMessage(new ChatComponentText(player.getCommandSenderName() + " spawned. Trying to fetch data..."));
+				player.addChatMessage(
+						new ChatComponentText(player.getDisplayName() + " spawned. Path: " + getPath()));
+				
+				int index = -1;
+				for (int i = 0; i < playerProfiles.size(); i++)
+				{
+					if (playerProfiles.get(i).hasKey(player.getDisplayName()))
+					{
+						index = i;
+						break;
+					}
+				}
+
+				if (index != -1)
+				{
+					playerProfiles.remove(index);
+				}
 				readFile(player);
 			}
 			else
 			{
-				player.addChatMessage(new ChatComponentText("You spawned. Path: " + getPath()));
+				int b = 0;
+				for (int i = 0; i < playerProfiles.size(); i++)
+				{
+					b = playerProfiles.get(i).getInteger(player.getDisplayName());
+					if (b > 0)
+					{
+						break;
+					}
+				}
+				player.getEntityData().setInteger("blocksMined", b);
+				
+				player.addChatMessage(new ChatComponentText("You spawned."));
 			}
-			
-			
+
 		}
-		
+
 	}
 
 	@SubscribeEvent
 	public void onPlayerDeath(LivingDeathEvent event)
 	{
-		if(event.entity instanceof EntityPlayer)
+		if (event.entity instanceof EntityPlayer)
 		{
-			EntityPlayer player = (EntityPlayer)event.entity;
-			if(!player.worldObj.isRemote)
+			EntityPlayer player = (EntityPlayer) event.entity;
+			if (!player.worldObj.isRemote)
 			{
-				player.addChatMessage(new ChatComponentText(player.getDisplayName() + " died. Trying to save their data..."));
+				player.addChatMessage(
+						new ChatComponentText(player.getDisplayName() + " died. Trying to save their data..."));
 				writeFile(player);
 			}
 			else
 			{
 				player.addChatMessage(new ChatComponentText("You died."));
 			}
-			
-			
+
 		}
-		
+
 	}
 
 	@SubscribeEvent
 	public void onPlayerLogOut(PlayerLoggedOutEvent event)
 	{
-		if(!event.player.worldObj.isRemote)
+		if (!event.player.worldObj.isRemote)
 		{
 			writeFile(event.player);
+			int index = -1;
+			for (int i = 0; i < playerProfiles.size(); i++)
+			{
+				if (playerProfiles.get(i).hasKey(event.player.getDisplayName()))
+				{
+					index = i;
+					break;
+				}
+			}
+
+			if (index != -1)
+			{
+				playerProfiles.remove(index);
+			}
+
 		}
 		else
 		{
 			event.player.addChatMessage(new ChatComponentText("You logged out."));
 		}
-		
-		
+
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerSave(SaveToFile event)
 	{
-		if(!event.entityPlayer.worldObj.isRemote)
+		if (!event.entityPlayer.worldObj.isRemote)
 		{
 			writeFile(event.entityPlayer);
 		}
@@ -111,14 +158,15 @@ public class EventHook
 		if (ms.isSinglePlayer())
 		{
 			s1 = new File(Minecraft.getMinecraft().mcDataDir, "saves").toPath().toAbsolutePath().toString();
-			s = (new StringBuilder()).append(s1).append("\\").append(ms.getFolderName())
-					.append("\\" + nbtFileName).append(".dat").toString().replace("\\.\\", "\\");
+			s = (new StringBuilder()).append(s1).append("\\").append(ms.getFolderName()).append("\\" + nbtFileName)
+					.append(".dat").toString().replace("\\.\\", "\\");
 		}
 		else
 		{
 			s1 = FMLServerHandler.instance().getSavesDirectory().toPath().toAbsolutePath().toString();
-			s = (new StringBuilder()).append(s1).append("\\").append(ms.getFolderName())
-					.append("\\" + nbtFileName).append(".dat").toString().replace("\\.\\", "\\");;
+			s = (new StringBuilder()).append(s1).append("\\").append(ms.getFolderName()).append("\\" + nbtFileName)
+					.append(".dat").toString().replace("\\.\\", "\\");
+			;
 		}
 		return s;
 	}
@@ -161,7 +209,7 @@ public class EventHook
 		String name = player.getDisplayName();
 		try
 		{
-			
+
 			// lädt die datei von der festplatte
 			File file = new File(getPath());
 			FileInputStream fileInputStream = new FileInputStream(file);
@@ -170,8 +218,12 @@ public class EventHook
 			// lädt die Spierliste, bzw. falls nicht vorhanden wird neue
 			// angelegt
 			player.getEntityData().setInteger("blocksMined", nbt.getInteger(name));
-			player.addChatMessage(new ChatComponentText("Read " + nbt.getInteger(name)));
+			player.addChatMessage(new ChatComponentText(player.getDisplayName() + ": Read " + nbt.getInteger(name)));
+			NBTTagCompound nbt2 = new NBTTagCompound();
+			nbt.setInteger(name, nbt.getInteger(name));
 			
+			
+			playerProfiles.add(nbt);
 
 			fileInputStream.close();
 
@@ -208,9 +260,9 @@ public class EventHook
 
 			// den Spieler in die SpielerListe setzen
 			nbt.setInteger(name, player.getEntityData().getInteger("blocksMined"));
-			player.addChatMessage(new ChatComponentText("Wrote " + player.getEntityData().getInteger("blocksMined") + " [" + nbt.getInteger(name) + "]"));
+			player.addChatMessage(new ChatComponentText(
+					player.getDisplayName() + ": Wrote " + player.getEntityData().getInteger("blocksMined") + " [" + nbt.getInteger(name) + "]"));
 
-			
 			// speichert die Datei auf dem Rechner ab
 			CompressedStreamTools.writeCompressed(nbt, fileoutputstream);
 			fileoutputstream.close();

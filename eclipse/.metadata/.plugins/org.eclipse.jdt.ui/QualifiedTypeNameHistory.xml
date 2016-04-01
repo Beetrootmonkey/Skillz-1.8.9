@@ -15,9 +15,6 @@
 <fullyQualifiedTypeName name="net.minecraft.item.Item"/>
 <fullyQualifiedTypeName name="net.minecraft.enchantment.Enchantment"/>
 <fullyQualifiedTypeName name="net.minecraft.nbt.NBTTagList"/>
-<fullyQualifiedTypeName name="net.minecraft.nbt.NBTTagCompound"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="net.minecraft.entity.player.EntityPlayer"/>
 <fullyQualifiedTypeName name="net.minecraftforge.event.entity.EntityJoinWorldEvent"/>
 <fullyQualifiedTypeName name="cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent"/>
 <fullyQualifiedTypeName name="java.io.File"/>
@@ -29,4 +26,13 @@
 <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
 <fullyQualifiedTypeName name="cpw.mods.fml.server.FMLServerHandler"/>
 <fullyQualifiedTypeName name="net.minecraftforge.event.entity.player.PlayerEvent.SaveToFile"/>
+<fullyQualifiedTypeName name="net.minecraft.util.ChatComponentText"/>
+<fullyQualifiedTypeName name="net.minecraft.entity.player.EntityPlayer"/>
+<fullyQualifiedTypeName name="cpw.mods.fml.relauncher.SideOnly"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="ibxm.Player"/>
+<fullyQualifiedTypeName name="net.minecraft.server.management.PlayerProfileCache"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="net.minecraft.nbt.NBTTagInt"/>
+<fullyQualifiedTypeName name="net.minecraft.nbt.NBTTagCompound"/>
 </qualifiedTypeNameHistroy>
