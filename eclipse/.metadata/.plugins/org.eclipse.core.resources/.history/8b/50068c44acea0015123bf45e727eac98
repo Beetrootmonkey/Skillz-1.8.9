@@ -1,0 +1,88 @@
+package items;
+
+import java.util.List;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import iamtheissue.skillz.Main;
+import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.World;
+
+public class SkillzAxe extends ItemAxe
+{
+
+	public SkillzAxe(String unlocalizedName, ToolMaterial material)
+	{
+		super(material);
+		this.setUnlocalizedName(unlocalizedName);
+        this.setTextureName(Main.MODID + ":" + unlocalizedName);
+	}
+	
+	
+	
+	@Override
+	public boolean onItemUse(ItemStack p_77648_1_, EntityPlayer playerIn, World p_77648_3_, int p_77648_4_,
+			int p_77648_5_, int p_77648_6_, int p_77648_7_, float p_77648_8_, float p_77648_9_, float p_77648_10_)
+	{
+		playerIn.addChatMessage(new ChatComponentText("Blocks mined: " + playerIn.getEntityData().getInteger("blocksMined")));
+		
+		return super.onItemUse(p_77648_1_, playerIn, p_77648_3_, p_77648_4_, p_77648_5_, p_77648_6_, p_77648_7_, p_77648_8_,
+				p_77648_9_, p_77648_10_);
+	}
+
+
+
+	@Override
+	public boolean onBlockDestroyed(ItemStack stack, World p_150894_2_, Block p_150894_3_, int p_150894_4_,
+			int p_150894_5_, int p_150894_6_, EntityLivingBase playerIn)
+	{
+		if(playerIn instanceof EntityPlayer)
+		{
+			EntityPlayer player = (EntityPlayer)playerIn;
+			if(player.getEntityData().hasKey("blocksMined"))
+			{
+				int value = player.getEntityData().getInteger("blocksMined");
+				player.getEntityData().removeTag("blocksMined");
+				player.getEntityData().setInteger("blocksMined", value + 1);
+			}
+			else
+			{
+				player.getEntityData().setInteger("blocksMined", 1);
+			}
+		}
+		else if(playerIn instanceof EntityPlayerMP)
+		{
+			// TODO
+		}
+		
+		
+		
+		return super.onBlockDestroyed(stack, p_150894_2_, p_150894_3_, p_150894_4_, p_150894_5_, p_150894_6_,
+				playerIn);
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List toolTip, boolean advanced)
+	{
+		if(playerIn.getEntityData().hasKey("blocksMined"))
+		{
+			// For some reason shows the wrong number, despite the right being saved properly
+			toolTip.add("\u00a7aEXP: " + playerIn.getEntityData().getInteger("blocksMined"));
+		}
+		else
+		{
+			toolTip.add("\u00a7aEXP: None");
+		}
+		
+	}
+
+}
